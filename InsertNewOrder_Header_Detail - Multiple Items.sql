@@ -242,45 +242,16 @@ begin
 	end catch
 end
 
-select * from Production.ProductInventory
-select * from #mergingTable
 
----------------------------------------------------------------
-begin tran
-declare @orderDate_Plus7 datetime = dateadd(day, 7, getdate())
-exec InsertNewOrder_Header_Detail 
-@DueDate = @orderDate_Plus7, @CustomerID = 29825, @BillToAddressID = 985, @ShipToAddressID = 985, @ShipMethodID = 5,	--OrderHeader
-@OrderQuantities = '12, 27, 12, 2800', 
-@ProductIDs		 = '963, 964, 966, 967', @SpecialOfferID = 1, @UnitPrice = 17	--OrderDetail
-
-rollback
+----------------------------EXAMPLE USAGE-----------------------------------
+--begin tran
+--declare @orderDate_Plus7 datetime = dateadd(day, 7, getdate())
+--exec InsertNewOrder_Header_Detail 
+--@DueDate = @orderDate_Plus7, @CustomerID = 29825, @BillToAddressID = 985, @ShipToAddressID = 985, @ShipMethodID = 5,	--OrderHeader
+--@OrderQuantities = '12, 27, 12, 2800', 
+--@ProductIDs		 = '963, 964, 966, 967', @SpecialOfferID = 1, @UnitPrice = 17	--OrderDetail
+--
+--commit
 ---------------------------------------------------------------
 
---dbcc CHECKIDENT ('sales.salesorderdetail', RESEED, 75123);
 
---delete from Sales.SalesOrderheader
---where year(ModifiedDate) >= 2023
-
-select top 25 * from [Sales].[SalesOrderDetail]
-order by SalesOrderID desc
-
-select top 25 * from [Sales].[SalesOrderHeader]
-order by SalesOrderID desc
-
-select * from [Production].[ProductInventory]
-where ProductID between 963 and 967
-
-select * from Production.Product
-
-update [Production].[ProductInventory]
-set Quantity = 50
-where ProductID = 963 and LocationID = 7
-update [Production].[ProductInventory]
-set Quantity = 60
-where ProductID = 963 and LocationID = 60
-
-
-select * from #mergingTable
-select * from #tempProductsAvailable
-select * from #tempProductsNotAvailable
-select * from #tempTable
