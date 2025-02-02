@@ -1,2 +1,4 @@
-# Insert_New_Order_Header-Detail
- 
+This is a script that can be used to automatically insert a new order inside the Sales.SalesOrderHeader and Sales.SalesOrderDetail tables inside the AdventureWorks2022 test database from Microsoft.
+It also updates the Production.ProductInventory stock to automatically substract the ordered quantities, after checking of course, if the order is valid and if the quantities are sufficient in stock. The stock update method is also designed to take into consideration products from different locations. Say for example ProductID 963 has 60 pieces available in Location A and another 40 pieces available in Location B (so 100 in total) and someone orders 99 pieces, the order must go through and update the remaining stock accordingly (so 1 piece remains in Location B, since it substracts from the first Location first).
+
+Will be updated later to use all column attributes from both SalesOrderHeader and SalesOrderDetail.
